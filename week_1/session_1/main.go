@@ -76,7 +76,7 @@ func calculatePrice5(items []BaseProduct) {
 	}
 
 	fmt.Println("--------------------")
-	fmt.Printf("Total: $%.2f\n", total * 92.75 / 100)
+	fmt.Printf("Total: $%.2f\n", total * 107.25 / 100)
 }
 
 func main() {

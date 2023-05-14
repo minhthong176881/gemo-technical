@@ -1,0 +1,72 @@
+.logo {
+    background: url("/Bbbtokaba.webp");
+    width: 50px;
+    height: auto;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.page-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: url('/coffee_bg.png');
+    height: 100%;
+    min-height: 20rem;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.menu {
+    padding: 1rem 5%;
+    background-color: #f7f7f7;
+    text-align: center;
+    height: 100%;
+}
+
+.menu-btn-tab {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.menu .item-container {
+    padding: 1.5rem
+}
+
+.custom-button {
+    font-weight: 500;
+    height: auto;
+    font-size: 20px;
+    background-color: #603701;
+
+    &.active {
+        color: #c69b7b;
+    }
+}
+
+.custom-button:hover {
+    background-color: black !important;
+}
+
+.item-card {
+    width: 50%;
+}
+
+/* Tablet */
+@media only screen and (min-width: 600px) {
+    .item-card {
+        width: 25%;
+    }
+}
+
+/* Desktop */
+@media only screen and (min-width: 768px) {
+    .item-card {
+        width: 25%;
+    }
+}
