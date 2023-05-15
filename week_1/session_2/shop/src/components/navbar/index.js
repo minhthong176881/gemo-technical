@@ -8,8 +8,9 @@ import {
   // NavBtn,
   // NavBtnLink,
 } from "./navbarElement.js";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 
-const handleMenuClick = (e) => {};
+const handleMenuClick = (e) => { };
 
 const items = [
   {
@@ -22,6 +23,14 @@ const items = [
   },
   {
     key: '2',
+    label: (
+      <NavLink to="/Menu">
+        Menu
+      </NavLink>
+    ),
+  },
+  {
+    key: '3',
     label: (
       <NavLink to="/Menu">
         Menu
@@ -55,9 +64,9 @@ const Navbar = () => {
           {/* Second Nav */}
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
-        {/* <NavBtn>
-          <NavBtnLink to="/signin">Sign In</NavBtnLink>
-        </NavBtn> */}
+        <NavLink>
+          <ShoppingCartOutlined style={{fontSize: 25}} />
+        </NavLink>
       </Nav>
     </>
   );

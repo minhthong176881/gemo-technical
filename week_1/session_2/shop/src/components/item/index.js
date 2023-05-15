@@ -1,7 +1,10 @@
 import { Button, Card } from "antd";
-import React from "react";
+import React, { useState } from "react";
+import { ModalDetail } from "../../pages/detail";
 
 const Item = ({ item }) => {
+    const [isModalOpen, setOpenModal] = useState(false)
+
     return (
         <>
             <Card
@@ -16,10 +19,12 @@ const Item = ({ item }) => {
                         <p><b>Type:</b> Hot</p>
                         <p><b>Size:</b> S</p>
                         <b>Price: ${item.price}</b>
-                        <div style={{ marginTop: "10px" }}><Button type="primary" shape="round" className="custom-button" id="btn-add-to-card">Add to card</Button></div>
+                        <div style={{ marginTop: "10px" }}><Button type="primary" shape="round" className="custom-button" id="btn-add-to-card" onClick={() => setOpenModal(true)}>Add to card</Button></div>
                     </div>
                 </div>
-            </Card></>
+            </Card>
+            {isModalOpen && <ModalDetail isModalOpen={isModalOpen} data={item} handleClose={() => setOpenModal(false)} />}
+        </>
     )
 }
 
