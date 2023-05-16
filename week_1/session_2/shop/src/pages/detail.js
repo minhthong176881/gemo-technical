@@ -1,12 +1,14 @@
 import { Button, Modal, Space } from "antd"
 import React, { useMemo, useState } from "react"
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next';
 
 const types = [{ name: "Hot", id: "Hot", price: 0 }, { name: "Cold", id: "Cold", price: 0 }, { name: "Blended", id: "Blended", price: 0.5 }]
 const sizes = [{ name: "S", id: "S", price: 0 }, { name: "M", id: "M", price: 0.5 }, { name: "L", id: "L", price: 1 }]
 const optionsTest = [{ name: "abc", id: "abc", minFree: 0, maxQuantity: 5, quantity: 0, price: 0.25 }, { name: "M", id: "M", minFree: 2, maxQuantity: 5, quantity: 0, price: 0.25 }, { name: "L", id: "L", minFree: 0, maxQuantity: 5, quantity: 0, price: 0.25 }]
 
 export const ModalDetail = ({ isModalOpen, data, handleClose }) => {
+    const { t } = useTranslation();
     const [type, setType] = useState("Hot")
     const [size, setSize] = useState("S")
     const [options, setOptions] = useState(optionsTest)
@@ -46,9 +48,9 @@ export const ModalDetail = ({ isModalOpen, data, handleClose }) => {
                     <img className="item-card-img" style={{ objectFit: "cover" }} src={process.env.PUBLIC_URL + '/Bbbtokaba.webp'} alt={data.name} />
                 </div>
                 <div style={{ width: "100%" }}>
-                    <p><b>Available options</b></p>
+                    <p><b>{t('Available options')}</b></p>
                     <Space>
-                        <p><b>Type:</b></p>
+                        <p><b>{t('Type')}:</b></p>
                         {types.map((item) => {
                             return <Button key={item.id} type="primary" shape="round" className="custom-button" id={item.id} style={{ backgroundColor: item.id === type ? "#603701" : "#c69b7b", fontSize: "15px" }}
                                 onClick={() => setType(item.id)}>
@@ -58,7 +60,7 @@ export const ModalDetail = ({ isModalOpen, data, handleClose }) => {
                     </Space>
                     <div>
                         <Space>
-                            <p><b>Up size:</b></p>
+                            <p><b>{t('Size')}:</b></p>
                             {sizes.map((item) => {
                                 return <Button key={item.id} type="primary" shape="round" className="custom-button" id={item.id} style={{ backgroundColor: item.id === size ? "#603701" : "#c69b7b", borderRadius: "50%", fontSize: "15px" }}
                                     onClick={() => setSize(item.id)}>
@@ -106,11 +108,11 @@ export const ModalDetail = ({ isModalOpen, data, handleClose }) => {
                                 </div>)
                         })
                     }
-                    <b>Total: ${total}</b>
+                    <b>{t('Total')}: ${total}</b>
                     <div className="modal-footer">
                         <Button type="primary" shape="round" className="custom-button" id="modal-footer-ok" style={{ fontSize: "15px", backgroundColor: "#c69b7b" }} onClick={() => {
                             handleSubmit()
-                        }}>OK</Button>
+                        }}>{t('Add')}</Button>
                     </div>
                 </div>
             </div>
