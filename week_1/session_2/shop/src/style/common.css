@@ -166,7 +166,15 @@
         justify-content: right;
     }
 
-    #modal-footer-ok:hover {
+    .modal-footer .custom-button:hover {
         background-color: #603701 !important;
+    }
+
+    .trash-icon {
+        font-size: 30px;
+    }
+
+    .trash-icon:hover {
+        cursor: pointer;
     }
 }

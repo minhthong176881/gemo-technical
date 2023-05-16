@@ -6,6 +6,7 @@ import Home from './pages';
 import Navbar from './components/navbar';
 import Menu from './pages/menu';
 import i18n from './i18';
+import Checkout from './pages/checkout';
 
 function App() {
   i18n.changeLanguage('en')
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path='/' exact Component={Home} />
         <Route path='/menu' exact Component={Menu} />
+        <Route path='/checkout' exact Component={Checkout} />
       </Routes>
     </Router>
   );

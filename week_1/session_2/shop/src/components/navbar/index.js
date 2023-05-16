@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dropdown } from "antd";
 import {
   Nav,
@@ -9,6 +9,7 @@ import {
   // NavBtnLink,
 } from "./navbarElement.js";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import { ModalCart } from "../../pages/cart.js";
 
 const handleMenuClick = (e) => { };
 
@@ -45,6 +46,8 @@ const menuProps = {
 };
 
 const Navbar = () => {
+  const [isModalOpen, setOpenModal] = useState(false)
+
   return (
     <>
       <Nav>
@@ -65,9 +68,10 @@ const Navbar = () => {
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
         <NavLink>
-          <ShoppingCartOutlined style={{fontSize: 25}} />
+          <ShoppingCartOutlined style={{ fontSize: 25 }} onClick={() => { setOpenModal(true) }} />
         </NavLink>
       </Nav>
+      {isModalOpen && <ModalCart isModalOpen={isModalOpen} handleClose={() => setOpenModal(false)} />}
     </>
   );
 };

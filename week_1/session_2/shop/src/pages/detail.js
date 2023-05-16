@@ -2,6 +2,7 @@ import { Button, Modal, Space } from "antd"
 import React, { useMemo, useState } from "react"
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from "react-router-dom";
 
 const types = [{ name: "Hot", id: "Hot", price: 0 }, { name: "Cold", id: "Cold", price: 0 }, { name: "Blended", id: "Blended", price: 0.5 }]
 const sizes = [{ name: "S", id: "S", price: 0 }, { name: "M", id: "M", price: 0.5 }, { name: "L", id: "L", price: 1 }]
@@ -9,11 +10,13 @@ const optionsTest = [{ name: "abc", id: "abc", minFree: 0, maxQuantity: 5, quant
 
 export const ModalDetail = ({ isModalOpen, data, handleClose }) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [type, setType] = useState("Hot")
     const [size, setSize] = useState("S")
     const [options, setOptions] = useState(optionsTest)
     const handleSubmit = () => {
         const orderItem = {
+            name: data.name,
             type,
             size,
             options,
@@ -25,6 +28,11 @@ export const ModalDetail = ({ isModalOpen, data, handleClose }) => {
         localStorage.setItem("orderItems", JSON.stringify(newOrderItems));
 
         handleClose()
+    }
+
+    const handleCheckout = () => {
+        handleSubmit()
+        navigate('/checkout')
     }
 
     const total = useMemo(() => {
@@ -110,9 +118,12 @@ export const ModalDetail = ({ isModalOpen, data, handleClose }) => {
                     }
                     <b>{t('Total')}: ${total}</b>
                     <div className="modal-footer">
-                        <Button type="primary" shape="round" className="custom-button" id="modal-footer-ok" style={{ fontSize: "15px", backgroundColor: "#c69b7b" }} onClick={() => {
+                        <Button type="primary" shape="round" className="custom-button" style={{ fontSize: "15px", backgroundColor: "#c69b7b" }} onClick={() => {
                             handleSubmit()
                         }}>{t('Add')}</Button>
+                        <Button type="primary" shape="round" className="custom-button" style={{ fontSize: "15px", marginLeft: "10px", backgroundColor: "#c69b7b" }} onClick={() => {
+                            handleCheckout()
+                        }}>{t('Checkout')}</Button>
                     </div>
                 </div>
             </div>
