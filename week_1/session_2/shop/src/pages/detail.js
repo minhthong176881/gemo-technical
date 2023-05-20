@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const types = [{ name: "Hot", id: "Hot", price: 0 }, { name: "Cold", id: "Cold", price: 0 }, { name: "Blended", id: "Blended", price: 0.5 }]
 const sizes = [{ name: "S", id: "S", price: 0 }, { name: "M", id: "M", price: 0.5 }, { name: "L", id: "L", price: 1 }]
-const optionsTest = [{ name: "abc", id: "abc", minFree: 0, maxQuantity: 5, quantity: 0, price: 0.25 }, { name: "M", id: "M", minFree: 2, maxQuantity: 5, quantity: 0, price: 0.25 }, { name: "L", id: "L", minFree: 0, maxQuantity: 5, quantity: 0, price: 0.25 }]
+const optionsTest = [{ name: "Whipped cream", id: "whipped_cream", minFree: 0, maxQuantity: 1, quantity: 0, price: 0.25 }, { name: "Whole milk", id: "whole_milk", minFree: 0, maxQuantity: 1, quantity: 0, price: 0.25 }, { name: "Almond milk", id: "almond_milk", minFree: 0, maxQuantity: 1, quantity: 0, price: 0.5 }, { name: "Chocolate sauce", id: "chocolate_sauce", minFree: 2, maxQuantity: 6, quantity: 0, price: 0.5 }]
 
 export const ModalDetail = ({ isModalOpen, data, handleClose }) => {
     const { t } = useTranslation();

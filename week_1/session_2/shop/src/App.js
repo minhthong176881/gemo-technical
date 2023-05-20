@@ -9,7 +9,12 @@ import i18n from './i18';
 import Checkout from './pages/checkout';
 
 function App() {
-  i18n.changeLanguage('en')
+  var lang = localStorage.getItem('lang');
+  if (lang) i18n.changeLanguage(lang)
+  else {
+    i18n.changeLanguage('en')
+    localStorage.setItem('lang', 'en')
+  }
   return (
     <Router>
       <Navbar />

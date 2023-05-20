@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dropdown } from "antd";
+import { Button, Dropdown } from "antd";
 import {
   Nav,
   NavLink,
@@ -10,6 +10,7 @@ import {
 } from "./navbarElement.js";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { ModalCart } from "../../pages/cart.js";
+import i18n from "../../i18.js";
 
 const handleMenuClick = (e) => { };
 
@@ -46,7 +47,31 @@ const menuProps = {
 };
 
 const Navbar = () => {
+  const getLang = () => {
+    var lang = localStorage.getItem('lang');
+    if (lang) {
+      i18n.changeLanguage(lang)
+      if (lang === 'en') return 'vn'
+      else return 'en'
+    }
+    else {
+      i18n.changeLanguage('en')
+      localStorage.setItem('lang', 'en')
+      return 'vn'
+    }
+  }
   const [isModalOpen, setOpenModal] = useState(false)
+  const [lang, setLang] = useState(getLang)
+
+  const changeLanguage = () => {
+    i18n.changeLanguage(lang)
+
+    if (lang === 'en') {
+      setLang('vn')
+    } else if (lang === 'vn') setLang('en')
+
+    localStorage.setItem('lang', lang)
+  }
 
   return (
     <>
@@ -69,6 +94,7 @@ const Navbar = () => {
         </NavMenu>
         <NavLink>
           <ShoppingCartOutlined style={{ fontSize: 25 }} onClick={() => { setOpenModal(true) }} />
+          <Button type="primary" shape="round" style={{ marginLeft: "20px" }} onClick={changeLanguage}>{lang}</Button>
         </NavLink>
       </Nav>
       {isModalOpen && <ModalCart isModalOpen={isModalOpen} handleClose={() => setOpenModal(false)} />}
