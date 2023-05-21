@@ -1,4 +1,4 @@
-import { Button, Modal, Space } from "antd"
+import { Button, Modal, Select, Space } from "antd"
 import React, { useMemo, useState } from "react"
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next';
@@ -51,71 +51,97 @@ export const ModalDetail = ({ isModalOpen, data, handleClose }) => {
 
     return (
         <Modal title={data.name} open={isModalOpen} centered onCancel={handleClose} onOk={() => { }} width={800} footer={null}>
-            <div style={{ display: "flex" }}>
-                <div>
-                    <img className="item-card-img" style={{ objectFit: "cover" }} src={process.env.PUBLIC_URL + '/Bbbtokaba.webp'} alt={data.name} />
+            <div className="item-detail-container">
+                <div style={{ textAlign: 'center' }}>
+                    <img className="item-detail-img" src={process.env.PUBLIC_URL + '/Bbbtokaba.webp'} alt={data.name} />
                 </div>
                 <div style={{ width: "100%" }}>
                     <p><b>{t('Available options')}</b></p>
                     <Space>
                         <p><b>{t('Type')}:</b></p>
                         {types.map((item) => {
-                            return <Button key={item.id} type="primary" shape="round" className="custom-button" id={item.id} style={{ backgroundColor: item.id === type ? "#603701" : "#c69b7b", fontSize: "15px" }}
+                            return <Button key={item.id} type="primary" shape="round" className="custom-button not-mobile" id={item.id} style={{ backgroundColor: item.id === type ? "#603701" : "#c69b7b", fontSize: "15px" }}
                                 onClick={() => setType(item.id)}>
                                 {item.name}
                             </Button>
                         })}
+                        <div className="not-desktop">
+                            <Select
+                                defaultValue="Hot"
+                                style={{ width: 120 }}
+                                onChange={setType}
+                                options={
+                                    types.map((item) => {
+                                        return { value: item.id, label: item.name }
+                                    })
+                                }
+                            />
+                        </div>
                     </Space>
                     <div>
                         <Space>
                             <p><b>{t('Size')}:</b></p>
                             {sizes.map((item) => {
-                                return <Button key={item.id} type="primary" shape="round" className="custom-button" id={item.id} style={{ backgroundColor: item.id === size ? "#603701" : "#c69b7b", borderRadius: "50%", fontSize: "15px" }}
+                                return <Button key={item.id} type="primary" shape="round" className="custom-button not-mobile" id={item.id} style={{ backgroundColor: item.id === size ? "#603701" : "#c69b7b", borderRadius: "50%", fontSize: "15px" }}
                                     onClick={() => setSize(item.id)}>
                                     {item.name}
                                 </Button>
                             })}
+                            <div className="not-desktop" style={{ marginLeft: 0 }}>
+                                <Select
+                                    defaultValue="S"
+                                    style={{ width: 120 }}
+                                    onChange={setSize}
+                                    options={
+                                        sizes.map((item) => {
+                                            return { value: item.id, label: item.name }
+                                        })
+                                    }
+                                />
+                            </div>
                         </Space>
                     </div>
                     <p><b>Topping:</b></p>
-                    {
-                        options.map((item) => {
-                            return (
-                                <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: "center", margin: 5 }}>
-                                    <div>
-                                        <span><b>{item.name}</b></span>
-                                        <div>${item.price}</div>
-                                    </div>
+                    <div className="not-mobile">
+                        {
+                            options.map((item) => {
+                                return (
                                     <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: "center", margin: 5 }}>
-                                        <Button disabled={item.quantity === 0} onClick={() => {
-                                            const newData = options.map((option) => {
-                                                if (option.id === item.id) {
-                                                    return {
-                                                        ...option,
-                                                        quantity: option.quantity - 1
+                                        <div>
+                                            <span><b>{item.name}</b></span>
+                                            <div>${item.price}</div>
+                                        </div>
+                                        <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: "center", margin: 5 }}>
+                                            <Button disabled={item.quantity === 0} onClick={() => {
+                                                const newData = options.map((option) => {
+                                                    if (option.id === item.id) {
+                                                        return {
+                                                            ...option,
+                                                            quantity: option.quantity - 1
+                                                        }
                                                     }
-                                                }
-                                                return option
-                                            })
-                                            setOptions(newData)
-                                        }} shape="circle" icon={<MinusOutlined />}></Button>
-                                        <span style={{ margin: "0 10px" }}>{item.quantity}</span>
-                                        <Button disabled={item.quantity === item.maxQuantity} onClick={() => {
-                                            const newData = options.map((option) => {
-                                                if (option.id === item.id) {
-                                                    return {
-                                                        ...option,
-                                                        quantity: option.quantity + 1
+                                                    return option
+                                                })
+                                                setOptions(newData)
+                                            }} shape="circle" icon={<MinusOutlined />}></Button>
+                                            <span style={{ margin: "0 10px" }}>{item.quantity}</span>
+                                            <Button disabled={item.quantity === item.maxQuantity} onClick={() => {
+                                                const newData = options.map((option) => {
+                                                    if (option.id === item.id) {
+                                                        return {
+                                                            ...option,
+                                                            quantity: option.quantity + 1
+                                                        }
                                                     }
-                                                }
-                                                return option
-                                            })
-                                            setOptions(newData)
-                                        }} shape="circle" icon={<PlusOutlined />}></Button>
-                                    </div>
-                                </div>)
-                        })
-                    }
+                                                    return option
+                                                })
+                                                setOptions(newData)
+                                            }} shape="circle" icon={<PlusOutlined />}></Button>
+                                        </div>
+                                    </div>)
+                            })
+                        }
+                    </div>
                     <b>{t('Total')}: ${total}</b>
                     <div className="modal-footer">
                         <Button type="primary" shape="round" className="custom-button" style={{ fontSize: "15px", backgroundColor: "#c69b7b" }} onClick={() => {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Space } from 'antd';
 import Item from "../components/item";
+import Navbar from "../components/navbar";
 
 var types = [{ name: "Coffee", id: "coffee" }, { name: "Milk tea", id: "milk_tea" }, { name: "Breakfast", id: "breakfast" }]
 
@@ -82,6 +83,7 @@ const Menu = () => {
 
     return (
         <>
+            <Navbar />
             <div className="page-title">
                 <h1>Menu</h1>
             </div>
