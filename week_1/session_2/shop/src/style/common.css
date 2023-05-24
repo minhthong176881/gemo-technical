@@ -123,6 +123,10 @@
         font-weight: 500;
     }
 
+    .page-title {
+        min-height: 15rem;
+    }
+
     .ant-space-item {
         width: auto !important;
     }
@@ -159,6 +163,10 @@
         font-weight: 500;
     }
 
+    .page-title {
+        min-height: 15rem;
+    }
+
     .ant-space-item {
         width: auto !important;
     }
@@ -180,6 +188,12 @@
 
     .item-card .item-card-detail {
         padding-left: 10px
+    }
+
+    .item-detail-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
     }
 
 

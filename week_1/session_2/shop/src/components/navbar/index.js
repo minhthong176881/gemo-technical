@@ -93,6 +93,11 @@ const Navbar = () => {
       return 'vn'
     }
   }
+
+  const getUser = () => {
+    return localStorage.getItem('user');
+  }
+
   const [isModalOpen, setOpenModal] = useState(false)
   const [lang, setLang] = useState(getLang)
 
@@ -105,6 +110,8 @@ const Navbar = () => {
 
     localStorage.setItem('lang', lang)
   }
+
+  const user = getUser();
 
   return (
     <>
@@ -128,13 +135,16 @@ const Navbar = () => {
         <NavRightLink>
           <NavLink>
             <ShoppingCartOutlined style={{ fontSize: 25 }} onClick={() => { setOpenModal(true) }} />
-            <Button type="primary" shape="round" className="btn-brown" style={{ marginLeft: "20px" }} onClick={changeLanguage}>{lang}</Button>
-            {/* <Dropdown menu={userProps}>
-              <UserOutlined />
-            </Dropdown> */}
+            <Button type="primary" shape="round" className="btn-brown" style={{ margin: "0px 20px" }} onClick={changeLanguage}>{lang}</Button>
+            {user ? (
+              // <Dropdown menu={userProps}>
+              <div style={{ fontSize: 25 }}><UserOutlined /></div>
+              // </Dropdown>
+            ) : (
             <NavLink to="/login">
               Login
             </NavLink>
+            )}
           </NavLink>
         </NavRightLink>
       </Nav>

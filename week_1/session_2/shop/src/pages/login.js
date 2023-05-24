@@ -22,6 +22,7 @@ const Login = () => {
         if (!ret.isLoggedIn) message.error('Invalid credential!')
         else {
             message.success('Login successful!');
+            localStorage.setItem('user', { username: ret.username })
             if (ret.username === 'guest')
                 navigate('/')
             else navigate('/admin')
