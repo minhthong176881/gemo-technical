@@ -94,7 +94,7 @@ const Checkout = () => {
                 <div style={{ display: "flex", justifyContent: "end", marginTop: "20px" }}>
                     <div>
                         <div style={{ width: "200px" }}><i><b>{t('Tax')}:</b> 7.25%</i></div><br />
-                        <div style={{ width: "200px" }}><i><b>{t('Total')}:</b> ${total * 1.0725}</i></div>
+                        <div style={{ width: "200px" }}><i><b>{t('Total')}:</b> ${(total * 1.0725).toFixed(2)}</i></div>
                         <Button type="primary" shape="round"
                             className="custom-button"
                             disabled={items.length ? false : true}

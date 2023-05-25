@@ -51,6 +51,7 @@ const Menu = () => {
         let i = 0;
 
         list.forEach((item) => {
+           item.category = name; 
             x.push(<Item key={i} item={item}></Item>)
             i += 1
         })

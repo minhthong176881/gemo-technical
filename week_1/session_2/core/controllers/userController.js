@@ -27,6 +27,13 @@ module.exports = {
         })
 
         try {
+            const existed = await User.findOne({ name: data.name });
+            if (existed) return res.status(400).json({ message: `User ${data.name} has already existed` });
+        } catch (error) {
+            return res.status(500).json({ message: error.message })
+        }
+
+        try {
             const dataToSave = await data.save();
             res.status(200).json(dataToSave)
         }
@@ -39,11 +46,11 @@ module.exports = {
             const id = req.params.id;
             const updatedData = req.body;
             const options = { new: true };
-    
+
             const result = await User.findByIdAndUpdate(
                 id, updatedData, options
             )
-    
+
             res.send(result)
         }
         catch (error) {

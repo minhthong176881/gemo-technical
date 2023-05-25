@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-const dbURL = 'mongodb://mongodb:27017/gemo'
+const dbURL = 'mongodb://localhost:27017/gemo'
 const dbName = 'gemo';
 
 mongoose.connect(dbURL);
