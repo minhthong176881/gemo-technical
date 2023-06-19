@@ -1,0 +1,6 @@
+go 1.20
+
+use (
+	./week_1/session_1
+	./week_6/session_2
+)
