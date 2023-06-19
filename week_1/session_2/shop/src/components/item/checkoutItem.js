@@ -5,7 +5,7 @@ import { FaTrash } from "react-icons/fa";
 const CheckoutItem = ({ item, handleDelete }) => {
     console.log('item', item)
     const { t } = useTranslation()
-    const topping = item.options.map((item) => item.name).join(", ")
+    const topping = item.category === 'breakfast' ? item.foodOptions.map((item) => item.name).join(", ") : item.drinkOptions.map((item) => item.name).join(", ")
     return (
         <div>
             <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: "20px", borderBottom: "0.5px solid black" }}>

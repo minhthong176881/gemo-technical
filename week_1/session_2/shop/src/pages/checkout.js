@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Button, Empty, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import { SmileOutlined } from "@ant-design/icons";
+import Navbar from "../components/navbar";
 
 const Checkout = () => {
     const { t } = useTranslation()
@@ -38,7 +39,7 @@ const Checkout = () => {
 
     const delay = ms => new Promise(
         resolve => setTimeout(resolve, ms)
-      );
+    );
 
     const handleOrder = async () => {
         openNotification()
@@ -53,6 +54,7 @@ const Checkout = () => {
     });
     if (!items.length) {
         return <>
+            <Navbar />
             <div className="page-title">
                 <h1>{t('Checkout')}</h1>
             </div>
@@ -78,6 +80,7 @@ const Checkout = () => {
     return (
         <>
             {contextHolder}
+            <Navbar />
             <div className="page-title">
                 <h1>{t('Checkout')}</h1>
             </div>
@@ -90,7 +93,8 @@ const Checkout = () => {
 
                 <div style={{ display: "flex", justifyContent: "end", marginTop: "20px" }}>
                     <div>
-                        <div style={{ width: "200px" }}><i><b>{t('Total')}:</b> ${total}</i></div>
+                        <div style={{ width: "200px" }}><i><b>{t('Tax')}:</b> 7.25%</i></div><br />
+                        <div style={{ width: "200px" }}><i><b>{t('Total')}:</b> ${(total * 1.0725).toFixed(2)}</i></div>
                         <Button type="primary" shape="round"
                             className="custom-button"
                             disabled={items.length ? false : true}
