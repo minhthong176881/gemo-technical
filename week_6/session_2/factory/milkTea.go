@@ -4,12 +4,17 @@ type MilkTea struct {
 	Product
 }
 
-func newMilkTea() IProduct {
+func newMilkTea(name string) IProduct {
+	prop := make(map[string]string)
+	prop["name"] = name
+	prop["type"] = "Hot"
+	prop["size"] = "S"
+	prop["topping"] = "None"
+	prop["category"] = "Drink"
 	return &MilkTea{
 		Product{
-			name:  "Milk tea",
-			price: 2.5,
-			properties: make(map[string]string),
+			price: 2.25,
+			properties: prop,
 		},
 	}
 }

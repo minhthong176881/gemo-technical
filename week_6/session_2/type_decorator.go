@@ -22,7 +22,7 @@ type Cold struct {
 
 func (c *Cold) GetPrice() float32 {
 	return c.product.GetPrice()
-}
+} 
 
 func (c *Cold) GetProperties() map[string]string {
 	prop := c.product.GetProperties()

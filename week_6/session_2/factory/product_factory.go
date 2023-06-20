@@ -2,15 +2,15 @@ package factory
 
 import "fmt"
 
-func GetProduct(productType string) (IProduct, error) {
+func GetProduct(productType string, name string) (IProduct, error) {
 	if productType == "drink" {
-		return newDrink(), nil
+		return newDrink(name), nil
 	}
 	if productType == "breakfast" {
-		return newBreakfast(), nil
+		return newBreakfast(name), nil
 	}
 	if productType == "milktea" {
-		return newMilkTea(), nil
+		return newMilkTea(name), nil
 	}
 
 	return nil, fmt.Errorf("invalid product type")

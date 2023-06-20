@@ -4,6 +4,20 @@ import (
 	factory "gemo_pricing/factory"
 )
 
+type SmallSize struct {
+	product factory.IProduct
+}
+
+func (s *SmallSize) GetPrice() float32 {
+	return s.product.GetPrice()
+}
+
+func (s *SmallSize) GetProperties() map[string]string {
+	prop := s.product.GetProperties()
+	prop["size"] = "S"
+	return prop
+}
+
 type MediumSize struct {
 	product factory.IProduct
 }
@@ -47,4 +61,8 @@ func (x *ExtraLargeSize) GetProperties() map[string]string {
 	prop := x.product.GetProperties()
 	prop["size"] = "XL"
 	return prop
+}
+
+func validateProps(props map[string]string, prop string) bool {
+	return props["type"] != "Hot"
 }
