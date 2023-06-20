@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	decorator "gemo_pricing/decorator"
 	factory "gemo_pricing/factory"
 	"sort"
 
@@ -34,18 +35,18 @@ func main() {
 	milkTea, _ := factory.GetProduct("milktea", "Dink tea")
 	breakfast, _ := factory.GetProduct("breakfast", "Super bagel")
 
-	drinkSizeL := &LargeSize{product: drink}
-	drinkSizeLWithWhippedCream := &WhippedCream{product: drinkSizeL}
-	drinkSizeLWithWhippedCreamTypeBlended := &Blended{product: drinkSizeLWithWhippedCream}
-	drinkSizeLWithWhippedCreamWithAlmondMilkTypeBlended := &AlmondMilk{product: drinkSizeLWithWhippedCreamTypeBlended}
+	drinkSizeL := &decorator.LargeSize{Product: drink}
+	drinkSizeLWithWhippedCream := &decorator.WhippedCream{Product: drinkSizeL}
+	drinkSizeLWithWhippedCreamTypeBlended := &decorator.Blended{Product: drinkSizeLWithWhippedCream}
+	drinkSizeLWithWhippedCreamWithAlmondMilkTypeBlended := &decorator.AlmondMilk{Product: drinkSizeLWithWhippedCreamTypeBlended}
 
-	milkTeaSizeXL := &ExtraLargeSize{product: milkTea}
-	milkTeaSizeXLWithAlMondMilk := &AlmondMilk{product: milkTeaSizeXL}
-	milkTeaSizeXLWithAlMondMilkTypeCold := &Cold{product: milkTeaSizeXLWithAlMondMilk}
+	milkTeaSizeXL := &decorator.ExtraLargeSize{Product: milkTea}
+	milkTeaSizeXLWithAlMondMilk := &decorator.AlmondMilk{Product: milkTeaSizeXL}
+	milkTeaSizeXLWithAlMondMilkTypeCold := &decorator.Cold{Product: milkTeaSizeXLWithAlMondMilk}
 
-	breakfastSandwich := &Sandwich{product: breakfast}
-	breakfastSandwichWithEgg := &Egg{product: breakfastSandwich}
-	breakfastSandwichWithEggAndTurkey := &Turkey{product: breakfastSandwichWithEgg}
+	breakfastSandwich := &decorator.Sandwich{Product: breakfast}
+	breakfastSandwichWithEgg := &decorator.Egg{Product: breakfastSandwich}
+	breakfastSandwichWithEggAndTurkey := &decorator.Turkey{Product: breakfastSandwichWithEgg}
 
 	items := []factory.IProduct{drinkSizeLWithWhippedCreamWithAlmondMilkTypeBlended, milkTeaSizeXLWithAlMondMilkTypeCold, breakfastSandwichWithEggAndTurkey}
 	calculatePrices(items)
