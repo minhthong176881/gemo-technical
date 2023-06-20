@@ -44,3 +44,31 @@ func (b *Blended) GetProperties() map[string]string {
 	prop["type"] = "Blended"
 	return prop
 }
+
+type Bagel struct {
+	product factory.IProduct
+}
+
+func (b *Bagel) GetPrice() float32 {
+	return b.product.GetPrice()
+}
+
+func (b *Bagel) GetProperties() map[string]string {
+	prop := b.product.GetProperties()
+	prop["type"] = "Bagel"
+	return prop
+}
+
+type Sandwich struct {
+	product factory.IProduct
+}
+
+func (s *Sandwich) GetPrice() float32 {
+	return s.product.GetPrice()
+}
+
+func (s *Sandwich) GetProperties() map[string]string {
+	prop := s.product.GetProperties()
+	prop["type"] = "Sandwich"
+	return prop
+}

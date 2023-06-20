@@ -62,7 +62,3 @@ func (x *ExtraLargeSize) GetProperties() map[string]string {
 	prop["size"] = "XL"
 	return prop
 }
-
-func validateProps(props map[string]string, prop string) bool {
-	return props["type"] != "Hot"
-}

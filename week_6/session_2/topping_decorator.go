@@ -64,6 +64,66 @@ func (w *WholeMilk) GetProperties() map[string]string {
 	return prop
 }
 
+type Egg struct {
+	product factory.IProduct
+}
+
+func (e *Egg) GetPrice() float32 {
+	price := e.product.GetPrice()
+	return price + 1
+}
+
+func (e *Egg) GetProperties() map[string]string {
+	prop := e.product.GetProperties()
+	prop["topping"] = updateTopping(prop["topping"], "Egg")
+	return prop
+}
+
+type Turkey struct {
+	product factory.IProduct
+}
+
+func (t *Turkey) GetPrice() float32 {
+	price := t.product.GetPrice()
+	return price + 1
+}
+
+func (t *Turkey) GetProperties() map[string]string {
+	prop := t.product.GetProperties()
+	prop["topping"] = updateTopping(prop["topping"], "Turkey")
+	return prop
+}
+
+type Butter struct {
+	product factory.IProduct
+}
+
+func (b *Butter) GetPrice() float32 {
+	price := b.product.GetPrice()
+	return price + 0.5
+}
+
+func (b *Butter) GetProperties() map[string]string {
+	prop := b.product.GetProperties()
+	prop["topping"] = updateTopping(prop["topping"], "Butter")
+	return prop
+}
+
+type CreamCheese struct {
+	product factory.IProduct
+}
+
+func (c *CreamCheese) GetPrice() float32 {
+	price := c.product.GetPrice()
+	return price + 0.5
+}
+
+func (c *CreamCheese) GetProperties() map[string]string {
+	prop := c.product.GetProperties()
+	prop["topping"] = updateTopping(prop["topping"], "Cream Cheese")
+	return prop
+}
+
 func updateTopping(toppings string, topping string) string {
 	res := ""
 	if strings.Contains(toppings, "None") {
