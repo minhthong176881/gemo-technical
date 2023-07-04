@@ -154,6 +154,11 @@
         font-size: 15px;
         font-weight: 300;
     }
+
+    .social-login-btn {
+        font-size: 24px;
+        height: 45px;
+    }
 }
 
 /* Desktop */
@@ -226,5 +231,10 @@
 
     .not-desktop {
         display: none;
+    }
+
+    .social-login-btn {
+        font-size: 24px;
+        height: 45px;
     }
 }

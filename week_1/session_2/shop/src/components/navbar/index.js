@@ -12,6 +12,7 @@ import {
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { ModalCart } from "../../pages/cart.js";
 import i18n from "../../i18.js";
+import { logout } from '../../Firebase'
 
 const handleMenuClick = (e) => { };
 
@@ -50,34 +51,34 @@ const items = [
   },
 ];
 
-const userItems = [
-  {
-    key: '1',
-    label: (
-      <NavLink to="/login">
-        Login
-      </NavLink>
-    ),
-  },
-  {
-    key: '2',
-    label: (
-      <NavLink to="/signup">
-        Sign up
-      </NavLink>
-    ),
-  },
-]
+// const userItems = [
+//   {
+//     key: '1',
+//     label: (
+//       <NavLink to="/login">
+//         Login
+//       </NavLink>
+//     ),
+//   },
+//   {
+//     key: '2',
+//     label: (
+//       <NavLink to="/signup">
+//         Sign up
+//       </NavLink>
+//     ),
+//   },
+// ]
 
 const menuProps = {
   items,
   onClick: handleMenuClick,
 };
 
-const userProps = {
-  userItems,
-  onclick: handleMenuClick
-}
+// const userProps = {
+//   userItems,
+//   onclick: handleMenuClick
+// }
 
 const Navbar = () => {
   const getLang = () => {
@@ -96,6 +97,12 @@ const Navbar = () => {
 
   const getUser = () => {
     return localStorage.getItem('user');
+  }
+
+  const handleLogout = () => {
+    logout();
+    localStorage.removeItem('user');
+    window.location.href = '/login';
   }
 
   const [isModalOpen, setOpenModal] = useState(false)
@@ -138,12 +145,15 @@ const Navbar = () => {
             <Button type="primary" shape="round" className="btn-brown" style={{ margin: "0px 20px" }} onClick={changeLanguage}>{lang}</Button>
             {user ? (
               // <Dropdown menu={userProps}>
-              <div style={{ fontSize: 25 }}><UserOutlined /></div>
               // </Dropdown>
+              <>
+                <div style={{ fontSize: 25 }}><UserOutlined /></div>
+                <div style={{ marginLeft: 20 }} onClick={() => handleLogout()}>Logout</div>
+              </>
             ) : (
-            <NavLink to="/login">
-              Login
-            </NavLink>
+              <NavLink to="/login">
+                Login
+              </NavLink>
             )}
           </NavLink>
         </NavRightLink>

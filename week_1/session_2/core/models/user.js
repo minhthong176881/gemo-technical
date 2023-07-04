@@ -1,18 +1,32 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    name: {
+    username: {
+        type: String,
         required: true,
-        type: String
-    },
-    password: {
-        required: true,
-        type: String
-    },
-    role: {
-        required: true,
-        type: String
-    }
+        unique: true,
+      },
+      password: {
+        type: String,
+      },
+      role: {
+        type: String,
+        enum: ["staff", "customer"],
+        default: "customer",
+      },
+      fullName: String,
+      email: String,
+      phone: String,
+      address: String,
+      googleId: String,
+      accessToken: String,
+      providerId: String,
+      uid: String,
+      picture: {
+        type: String,
+        default:
+          "https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-Vector-No-Background.png",
+      },
 })
 
 module.exports = mongoose.model('User', userSchema)

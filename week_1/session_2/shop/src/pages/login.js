@@ -1,32 +1,78 @@
+import { FacebookOutlined, GoogleOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
-import React from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Navigate, useNavigate } from 'react-router-dom';
+import { signInWithProvider } from "../Firebase";
+import axios from 'axios';
 
-const accounts = [{ username: "admin", password: "admin" }, { username: "guest", password: "guest" }]
+const backendUrl =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:8000/api/v1";
 
 const Login = () => {
     const navigate = useNavigate();
-    const checkAccount = (form) => {
-        let isLoggedIn = false
-        accounts.forEach(acc => {
-            if (form.username === acc.username && form.password === acc.password) {
-                isLoggedIn = true
-            }
-        })
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+    const [providerUser, setProviderUser] = useState(null);
 
-        return { isLoggedIn, username: form.username }
+    const login = async (provider) => {
+        const res = await signInWithProvider(provider);
+        if (res.success) {
+            if (res.user) {
+                if (!res.user.username)
+                    res.user.username = res.user.email;
+                setProviderUser(res.user);
+            }
+        } else {
+            if (res.code === 'auth/account-exists-with-different-credential') {
+                message.error("Email has already existed! Please try to login with another provider!");
+            } else message.error(res.code);
+        }
     }
 
-    const onFinish = (values) => {
-        let ret = checkAccount(values)
-        if (!ret.isLoggedIn) message.error('Invalid credential!')
-        else {
-            message.success('Login successful!');
-            localStorage.setItem('user', { username: ret.username })
-            if (ret.username === 'guest')
-                navigate('/')
-            else navigate('/admin')
+    useEffect(() => {
+        if (providerUser) {
+            axios
+                .post(`${backendUrl}/register`, providerUser)
+                .then((response) => {
+                    const user = {
+                        ...providerUser,
+                        _id: response.data.userId, // Store _id in the user object
+                    };
+                    localStorage.setItem("user", JSON.stringify(user));
+                    setUser(user);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
+    }, [providerUser]);
+
+    useEffect(() => {
+        // Update user state when localStorage changes
+        setUser(JSON.parse(localStorage.getItem("user")));
+    }, []);
+
+    const onFinish = (values) => {
+        const username = values.username;
+        const password = values.password;
+        axios
+            .post(`${backendUrl}/login`, { username, password })
+            .then((response) => {
+                const data = response.data;
+                if (data.user) {
+                    const user = {
+                        ...data.user,
+                    };
+                    message.success('Login successfully!')
+                    localStorage.setItem("user", JSON.stringify(user));
+                    setUser(user);
+                    navigate("/")
+                } else {
+                    message.error("Wrong username or password. Please try again.");
+                }
+            })
+            .catch((error) => {
+                message.error(error.response.data.message)
+            });
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -35,6 +81,7 @@ const Login = () => {
 
     return (
         <>
+            {user ? <Navigate to="/" /> : null}
             <div className="page-title">
                 <h1>Login</h1>
             </div>
@@ -107,6 +154,24 @@ const Login = () => {
                             <Checkbox>Remember me</Checkbox>
                         </Form.Item>
                     </div>
+
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 3,
+                            span: 16,
+                        }}
+                    >
+                        <Button type="primary" className="social-login-btn" onClick={() => login('Facebook')}>Login with Facebook <FacebookOutlined /></Button>
+                    </Form.Item>
+
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 3,
+                            span: 16,
+                        }}
+                    >
+                        <Button type="primary" className="social-login-btn" onClick={() => login('Google')}>Login with Google <GoogleOutlined /></Button>
+                    </Form.Item>
 
                     <Form.Item
                         wrapperCol={{
